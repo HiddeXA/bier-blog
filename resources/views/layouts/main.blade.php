@@ -38,99 +38,99 @@
       }
     }
   </script>
-  <style>
-    body {
-      background-color: #f7f3ec;
-      font-family: 'Lato', sans-serif;
-    }
-
-    .grain-overlay {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 50;
-      opacity: 0.025;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-      background-repeat: repeat;
-      background-size: 128px 128px;
-    }
-
-    .card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(26,18,8,0.12);
-    }
-
-    .card-link::after {
-      content: '';
-      display: block;
-      width: 0;
-      height: 1px;
-      background: #c8851e;
-      transition: width 0.3s ease;
-      margin-top: 2px;
-    }
-
-    .card-link:hover::after {
-      width: 100%;
-    }
-
-    .divider-ornament {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #a86714;
-    }
-
-    .divider-ornament::before,
-    .divider-ornament::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, transparent, #c8851e60, transparent);
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .fade-up {
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .card:nth-child(1) { animation-delay: 0.05s; }
-    .card:nth-child(2) { animation-delay: 0.12s; }
-    .card:nth-child(3) { animation-delay: 0.19s; }
-    .card:nth-child(4) { animation-delay: 0.26s; }
-    .card:nth-child(5) { animation-delay: 0.33s; }
-    .card:nth-child(6) { animation-delay: 0.40s; }
-
-    .badge-published {
-      background: #f2d9ac;
-      color: #864f12;
-      border: 1px solid #e9bf74;
-    }
-
-    .badge-draft {
-      background: #f0ede8;
-      color: #8a7968;
-      border: 1px solid #d9d3ca;
-    }
-
-    .hop-icon {
-      opacity: 0.07;
-      position: absolute;
-      right: -20px;
-      bottom: -20px;
-      width: 120px;
-      height: 120px;
-      pointer-events: none;
-    }
-  </style>
+      <style>
+        body {
+            background-color: #f7f3ec;
+            font-family: 'Lato', sans-serif;
+        }
+ 
+        .grain-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 128px 128px;
+        }
+ 
+        /* Prose content styles for the post body */
+        .post-content h1, .post-content h2, .post-content h3, .post-content h4 {
+            font-family: 'Playfair Display', serif;
+            color: #1a1208;
+            margin-top: 2em;
+            margin-bottom: 0.6em;
+            line-height: 1.3;
+        }
+        .post-content h2 { font-size: 1.5rem; font-weight: 600; }
+        .post-content h3 { font-size: 1.2rem; font-weight: 600; }
+ 
+        .post-content p {
+            margin-bottom: 1.5em;
+            line-height: 1.85;
+            color: #3d2b12;
+            font-weight: 300;
+        }
+ 
+        .post-content a {
+            color: #a86714;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+ 
+        .post-content blockquote {
+            border-left: 3px solid #e9bf74;
+            margin: 2em 0;
+            padding: 0.75em 1.5em;
+            background: #fdf8ef;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            color: #6e4015;
+            font-size: 1.1rem;
+        }
+ 
+        .post-content ul, .post-content ol {
+            margin: 1.5em 0;
+            padding-left: 1.5em;
+            color: #3d2b12;
+            font-weight: 300;
+            line-height: 1.85;
+        }
+        .post-content ul { list-style: disc; }
+        .post-content ol { list-style: decimal; }
+        .post-content li { margin-bottom: 0.4em; }
+ 
+        .post-content strong { font-weight: 700; color: #2d1f0d; }
+        .post-content em { font-style: italic; }
+ 
+        .post-content hr {
+            border: none;
+            border-top: 1px solid #e9bf74;
+            margin: 2.5em 0;
+        }
+ 
+        .divider-ornament {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #a86714;
+        }
+        .divider-ornament::before,
+        .divider-ornament::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #c8851e60, transparent);
+        }
+ 
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fade-up { animation: fadeUp 0.6s ease both; }
+        .fade-up-delay { animation: fadeUp 0.6s ease 0.15s both; }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col text-bark-900">
 
@@ -151,7 +151,7 @@
           <span class="hidden sm:inline text-amber-600 font-display italic text-sm ml-2">Blog</span>
         </div>
       </div>
-      <span class="text-xs tracking-widest uppercase text-amber-700 font-body font-light">Est. 2024</span>
+      <span class="text-xs tracking-widest uppercase text-amber-700 font-body font-light">Est. 2026</span>
     </div>
   </header>
 
@@ -166,9 +166,9 @@
   <!-- Footer -->
   <footer class="border-t border-amber-200 mt-16">
     <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <span class="font-display italic text-amber-700 text-sm">The Hop &amp; Grain Journal</span>
+      <span class="font-display italic text-amber-700 text-sm">Het Bier &amp; Plezier Blog</span>
       <p class="text-xs text-bark-700 font-body font-light tracking-wide">
-        &copy; 2025 &mdash; Crafted with care &amp; curiosity
+        &copy; 2026 &mdash; Crafted with care &amp; curiosity
       </p>
     </div>
   </footer>
