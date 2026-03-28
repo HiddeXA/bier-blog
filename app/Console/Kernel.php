@@ -30,5 +30,9 @@ class Kernel extends ConsoleKernel
             ->onFailure(function () {
                 Log::error('Daily post generation schedule failed');
             });
+
+        $schedule->command('queue:work --stop-when-empty')
+            ->everyMinute()
+            ->withoutOverlapping();
     }
 }
