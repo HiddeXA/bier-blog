@@ -37,23 +37,26 @@ class GeneratePostJob implements ShouldQueue
 
         try {
             $raw = $client->generateText($prompt);
+            $data = $this->parseResponse($raw);
+
+            $autoPublish = (bool) env('AUTO_PUBLISH_GENERATED_POSTS', true);
+
+            Post::create([
+                'title' => $data['title'],
+                'description' => $data['description'] ?? null,
+                'content' => $data['content'] ?? null,
+                'published' => $autoPublish,
+            ]);
+
+            Log::info('Daily post generated', ['title' => $data['title'], 'published' => $autoPublish]);
         } catch (\Throwable $e) {
-            Log::error('Gemini API call failed', ['error' => $e->getMessage()]);
-            return;
+            Log::error('Daily post generation failed', [
+                'error' => $e->getMessage(),
+                'topic' => $topic,
+            ]);
+
+            throw $e;
         }
-        
-        $data = $this->parseResponse($raw);
-
-        $autoPublish = (bool) env('AUTO_PUBLISH_GENERATED_POSTS', true);
-
-        Post::create([
-            'title' => $data['title'],
-            'description' => $data['description'] ?? null,
-            'content' => $data['content'] ?? null,
-            'published' => $autoPublish,
-        ]);
-
-        Log::info('Daily post generated', ['title' => $data['title'], 'published' => $autoPublish]);
     }
 
     private function pickTopic(): string
