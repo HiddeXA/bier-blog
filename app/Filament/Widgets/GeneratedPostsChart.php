@@ -34,6 +34,7 @@ class GeneratedPostsChart extends ChartWidget
             ->groupByRaw('DATE(created_at)')
             ->orderBy('date')
             ->pluck('count', 'date')
+            ->map(static fn ($count) => (int) $count)
             ->all();
 
         $labels = [];
@@ -51,8 +52,6 @@ class GeneratedPostsChart extends ChartWidget
                 [
                     'label' => 'Posts',
                     'data' => $data,
-                    'borderColor' => '#f59e0b',
-                    'backgroundColor' => 'rgba(245, 158, 11, 0.25)',
                     'tension' => 0.3,
                 ],
             ],
@@ -68,14 +67,16 @@ class GeneratedPostsChart extends ChartWidget
     protected function getDateRange(): array
     {
         $days = match ($this->filter) {
+            '7_days' => 7,
             '30_days' => 30,
             '90_days' => 90,
             '365_days' => 365,
             default => 7,
         };
 
-        $end = Carbon::now()->endOfDay();
-        $start = Carbon::now()->subDays($days - 1)->startOfDay();
+        $now = Carbon::now();
+        $end = $now->copy()->endOfDay();
+        $start = $now->copy()->subDays($days - 1)->startOfDay();
         $period = CarbonPeriod::create($start, $end);
 
         return [$start, $end, $period];
