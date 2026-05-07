@@ -28,7 +28,7 @@ class Dashboard extends BaseDashboard
         ];
     }
 
-    protected function getWidgets(): array
+    public function getWidgets(): array
     {
         return [
             GeneratedPostsChart::class,
