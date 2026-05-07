@@ -28,19 +28,13 @@ class GeneratedPostsChart extends ChartWidget
     {
         [$start, $end, $period] = $this->getDateRange();
 
-        $counts = [];
-
-        foreach (
-            Post::query()
-                ->whereBetween('created_at', [$start, $end])
-                ->orderBy('created_at')
-                ->select(['created_at'])
-                ->cursor() as $post
-        ) {
-            $key = $post->created_at->toDateString();
-
-            $counts[$key] = ($counts[$key] ?? 0) + 1;
-        }
+        $counts = Post::query()
+            ->whereBetween('created_at', [$start, $end])
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupByRaw('DATE(created_at)')
+            ->orderBy('date')
+            ->pluck('count', 'date')
+            ->all();
 
         $labels = [];
         $data = [];
