@@ -13,5 +13,6 @@ Route::get('/cron/{token}', function (string $token) {
         abort(403);
     }
     Artisan::call('schedule:run');
+    Artisan::call('queue:work', ['--once' => true]);
     return response()->noContent();
 });
