@@ -20,7 +20,7 @@ class GeneratedPostsChart extends ChartWidget
             '7_days' => 'Last 7 days',
             '30_days' => 'Last 30 days',
             '90_days' => 'Last 90 days',
-            '365_days' => 'Last 12 months',
+            '365_days' => 'Last 365 days',
         ];
     }
 
@@ -30,10 +30,9 @@ class GeneratedPostsChart extends ChartWidget
 
         $counts = Post::query()
             ->whereBetween('created_at', [$start, $end])
-            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
-            ->groupBy('date')
-            ->orderBy('date')
-            ->pluck('count', 'date')
+            ->get(['created_at'])
+            ->groupBy(fn (Post $post) => $post->created_at->toDateString())
+            ->map->count()
             ->all();
 
         $labels = [];
