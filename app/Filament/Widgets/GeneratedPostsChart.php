@@ -65,7 +65,7 @@ class GeneratedPostsChart extends ChartWidget
         return 'line';
     }
 
-    private function getDateRange(): array
+    protected function getDateRange(): array
     {
         $days = match ($this->filter) {
             '30_days' => 30,
