@@ -14,7 +14,7 @@ class Dashboard extends BaseDashboard
     {
         return [
             Action::make('generatePost')
-                ->label('Generate post')
+                ->label('Generate Post')
                 ->icon('heroicon-o-sparkles')
                 ->requiresConfirmation()
                 ->action(function (): void {

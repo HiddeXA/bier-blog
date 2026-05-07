@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 
 class GeneratedPostsChart extends ChartWidget
 {
-    protected static ?string $heading = 'Generated posts';
+    protected static ?string $heading = 'Generated Posts';
     protected static ?string $pollingInterval = '10s';
 
     public ?string $filter = '7_days';
