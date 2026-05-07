@@ -30,9 +30,10 @@ class GeneratedPostsChart extends ChartWidget
 
         $counts = Post::query()
             ->whereBetween('created_at', [$start, $end])
-            ->get(['created_at'])
-            ->groupBy(fn (Post $post) => $post->created_at->toDateString())
-            ->map->count()
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as count')
+            ->groupByRaw('DATE(created_at)')
+            ->orderBy('date')
+            ->pluck('count', 'date')
             ->all();
 
         $labels = [];
